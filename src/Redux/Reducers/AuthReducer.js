@@ -1,7 +1,7 @@
 import * as ActionsTypes from '../Actions/ActionsTypes';
 
 const initialState = {
-  token: localStorage.getItem('token') || null
+  token: localStorage.getItem('token')
 };
 
 export default (state = initialState, { type, payload }) => {

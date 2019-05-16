@@ -23,3 +23,27 @@ export const requestLoadDebtors = () => {
     payload: {}
   };
 };
+
+export const loadDebtors = payload => {
+  return {
+    type: ActionsType.LOAD_DEBTORS,
+    payload
+  };
+};
+export const addDebtor = () => {
+  return {
+    type: ActionsType.LOAD_DEBTORS,
+    payload: {}
+  };
+};
+export const finishAddDebtor = () => {
+  return {
+    type: ActionsType.LOAD_DEBTORS
+  };
+};
+
+export const addNewDebt = (payload, submitForm) => ({
+  type: ActionsType.ADD_NEW_DEBT,
+  payload,
+  submitForm
+});

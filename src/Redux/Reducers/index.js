@@ -1,5 +1,6 @@
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 import AuthReducer from './AuthReducer';
+import DebtsReducer from './DebtsReducer';
 /*
   Store
   Redux apps have a single store which takes
@@ -9,7 +10,7 @@ import AuthReducer from './AuthReducer';
 
 const RootReducer = combineReducers({
   AuthReducer,
-  UIReducer: {}
+  DebtsReducer
 });
 
 export default RootReducer;
