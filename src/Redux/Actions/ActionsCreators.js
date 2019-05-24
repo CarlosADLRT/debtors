@@ -47,3 +47,14 @@ export const addNewDebt = (payload, submitForm) => ({
   payload,
   submitForm
 });
+
+export const initAddPay = (payload, submitForm) => ({
+  type: ActionsType.INIT_PAY,
+  payload,
+  submitForm
+});
+
+export const addPay = payload => ({
+  type: ActionsType.PAY,
+  payload
+});

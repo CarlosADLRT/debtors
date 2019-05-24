@@ -4,6 +4,8 @@ import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Formik, Form, Field } from 'formik';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import { format } from 'date-fns';
+import { bindActionCreators } from 'redux';
+import { initAddPay } from '../../Redux/Actions/ActionsCreators';
 
 class AddNewPay extends Component {
   render() {
@@ -13,22 +15,33 @@ class AddNewPay extends Component {
         toggle={this.props.toggle}
         className={this.props.className}
       >
-        <ModalHeader toggle={this.props.toggle}>Agregar nuevo pago</ModalHeader>
-        <ModalBody>
-          <Formik
-            initialValues={{
-              debt: 0,
-              start: format(new Date(), 'MM/DD/YYYY')
-            }}
-            onSubmit={(values, { setSubmitting }) => {
-              console.log(values);
-            }}
-          >
-            {({ handleChange, handleBlur, values }) => (
-              <Form>
+        <Formik
+          initialValues={{
+            amount: 0,
+            date: format(new Date(), 'MM/DD/YYYY'),
+            tax: 0
+          }}
+          onSubmit={(values, { setSubmitting }) => {
+            console.log(values);
+            this.props.onAddPay(
+              { ...values, debt: this.props.debt },
+              setSubmitting
+            );
+          }}
+        >
+          {({ handleChange, handleBlur, values }) => (
+            <Form>
+              <ModalHeader toggle={this.props.toggle}>
+                Agregar nuevo pago
+              </ModalHeader>
+              <ModalBody>
                 <div className="form-group">
-                  <label>Monto pagado</label>
-                  <Field className="form-control" name="debt" type="number" />
+                  <label>Abono a capital</label>
+                  <Field className="form-control" name="amount" type="number" />
+                </div>
+                <div className="form-group">
+                  <label>Abono a interes</label>
+                  <Field className="form-control" name="tax" type="number" />
                 </div>
                 <div className="form-group">
                   <label>Fecha del pago</label>
@@ -36,29 +49,25 @@ class AddNewPay extends Component {
                   <DayPickerInput
                     onDayChange={handleChange}
                     onBlur={handleBlur}
-                    value={values.start}
+                    value={values.date}
                     formatDate={this.formatDate}
                     parseDate={this.parseDate}
                     format={'MM/DD/YYYY'}
                     className="form-control"
                   />
                 </div>
-              </Form>
-            )}
-          </Formik>
-        </ModalBody>
-        <ModalFooter>
-          <button
-            className="btn btn-primary"
-            type="submit"
-            onClick={this.props.toggle}
-          >
-            Agregar pago
-          </button>{' '}
-          <button className="btn btn-danger" onClick={this.props.toggle}>
-            Cancelar
-          </button>
-        </ModalFooter>
+              </ModalBody>
+              <ModalFooter>
+                <button type="submit" className="btn btn-primary">
+                  Submit
+                </button>{' '}
+                <button className="btn btn-danger" onClick={this.props.toggle}>
+                  Cancelar
+                </button>
+              </ModalFooter>
+            </Form>
+          )}
+        </Formik>
       </Modal>
     );
   }
@@ -66,7 +75,8 @@ class AddNewPay extends Component {
 
 const mapStateToProps = state => ({});
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ onAddPay: initAddPay }, dispatch);
 
 export default connect(
   mapStateToProps,

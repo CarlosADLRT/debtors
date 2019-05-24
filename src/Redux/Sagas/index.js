@@ -7,6 +7,7 @@ export function* rootSaga() {
   yield all([
     takeEvery(ActionTypes.INIT_LOGIN, loginSaga),
     takeEvery(ActionTypes.REQUEST_LOAD_DEBTORS, DebtorSaga.loadSaga),
-    takeEvery(ActionTypes.ADD_NEW_DEBT, DebtorSaga.addSaga)
+    takeEvery(ActionTypes.ADD_NEW_DEBT, DebtorSaga.addSaga),
+    takeEvery(ActionTypes.INIT_PAY, DebtorSaga.paySaga)
   ]);
 }

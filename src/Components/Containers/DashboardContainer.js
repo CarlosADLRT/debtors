@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as ActionsCreators from '../../Redux/Actions/ActionsCreators';
 import DashboardComponent from '../Presentional/DashboardComponent';
+import withGuardValidate from '../HOC/withGuardValidate';
 
 class DashboardContainer extends Component {
   componentDidMount() {
@@ -28,4 +29,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(DashboardContainer);
+)(withGuardValidate(DashboardContainer));

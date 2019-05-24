@@ -14,8 +14,8 @@ class DebtorTable extends Component {
     this.props.requestLoadDebtors();
   }
 
-  toggle = () => {
-    this.setState(prev => ({ ...prev, modal: !prev.modal }));
+  toggle = debt => {
+    this.setState(prev => ({ ...prev, modal: !prev.modal, debt }));
   };
 
   render() {
@@ -51,13 +51,13 @@ class DebtorTable extends Component {
                       <td>{moneyFormatter(i.debt)}</td>
                       <td>
                         <button
-                          onClick={this.toggle}
+                          onClick={() => this.toggle(i._KEY)}
                           className="btn btn-primary mr-3"
                         >
                           Agregar pago
                         </button>
                         <button
-                          onClick={this.toggle}
+                          // onClick={this.toggle}
                           className="btn btn-primary mr-3"
                         >
                           Ver pagos
@@ -74,7 +74,11 @@ class DebtorTable extends Component {
           </div>
         </div>
         {this.state.modal && (
-          <AddNewPay open={this.state.modal} toggle={this.toggle} />
+          <AddNewPay
+            debt={this.state.debt}
+            open={this.state.modal}
+            toggle={this.toggle}
+          />
         )}
       </Fragment>
     );
