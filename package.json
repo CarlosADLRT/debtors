@@ -1,45 +1,45 @@
 {
-  "name": "debtors",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.18",
-    "@fortawesome/free-solid-svg-icons": "^5.8.2",
-    "@fortawesome/react-fontawesome": "^0.1.4",
-    "axios": "^0.18.0",
-    "bootstrap": "^4.3.1",
-    "date-fns": "^1.30.1",
-    "formik": "^1.5.2",
-    "izitoast": "^1.4.0",
-    "node-sass": "^4.11.0",
-    "react": "^16.8.6",
-    "react-day-picker": "^7.3.0",
-    "react-dom": "^16.8.6",
-    "react-notification-system": "^0.2.17",
-    "react-redux": "^6.0.1",
-    "react-router-dom": "^5.0.0",
-    "react-scripts": "2.1.8",
-    "react-widgets": "^4.4.11",
-    "reactstrap": "^8.0.0",
-    "redux": "^4.0.1",
-    "redux-saga": "^1.0.2",
-    "sbx-axios": "^1.2.1",
-    "sbxcloud-cli": "^0.8.25"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "deploy" "sbxcloud-cli deploy ./build ff4de994-def8-4f46-9d76-67bbdb41c517 181 --username=carlosdelosreyes"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+	"name": "debtors",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+		"@fortawesome/fontawesome-svg-core": "^1.2.18",
+		"@fortawesome/free-solid-svg-icons": "^5.8.2",
+		"@fortawesome/react-fontawesome": "^0.1.4",
+		"axios": "^0.18.0",
+		"bootstrap": "^4.3.1",
+		"date-fns": "^1.30.1",
+		"formik": "^1.5.2",
+		"izitoast": "^1.4.0",
+		"node-sass": "^4.11.0",
+		"react": "^16.8.6",
+		"react-day-picker": "^7.3.0",
+		"react-dom": "^16.8.6",
+		"react-notification-system": "^0.2.17",
+		"react-redux": "^6.0.1",
+		"react-router-dom": "^5.0.0",
+		"react-scripts": "2.1.8",
+		"react-widgets": "^4.4.11",
+		"reactstrap": "^8.0.0",
+		"redux": "^4.0.1",
+		"redux-saga": "^1.0.2",
+		"sbx-axios": "^1.2.1",
+		"sbxcloud-cli": "^0.8.25"
+	},
+	"scripts": {
+		"start": "react-scripts start",
+		"build": "react-scripts build",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject",
+		"deploy": "sbxcloud-cli deploy ./build ff4de994-def8-4f46-9d76-67bbdb41c517 181 --username=carlosdelosreyes"
+	},
+	"eslintConfig": {
+		"extends": "react-app"
+	},
+	"browserslist": [
+		">0.2%",
+		"not dead",
+		"not ie <= 11",
+		"not op_mini all"
+	]
 }
