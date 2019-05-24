@@ -2,8 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: debian:stretch
-
+      - image: circleci/node:4.8.2
     steps:
       - checkout
 
@@ -14,3 +13,30 @@ jobs:
       - run:
           name: Print the Current Time
           command: date
+  deployment:
+    docker:
+      - image: circleci/node:4.8.2
+    steps:
+      - checkout # special step to check out source code to working directory
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
+      - restore_cache: # special step to restore the dependency cache
+          # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: install-npm-wee
+          command: npm install
+      - save_cache: # special step to save the dependency cache
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run: # run tests
+          name: test
+          command: npm test
+      - run: # run coverage report
+          name: build
+          command: npm build
+      - run: # run coverage report
+          name: build
+          command: npm deploy --password=$password

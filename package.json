@@ -23,13 +23,15 @@
     "reactstrap": "^8.0.0",
     "redux": "^4.0.1",
     "redux-saga": "^1.0.2",
-    "sbx-axios": "^1.2.1"
+    "sbx-axios": "^1.2.1",
+    "sbxcloud-cli": "^0.8.25"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy" "sbxcloud-cli deploy ./build ff4de994-def8-4f46-9d76-67bbdb41c517 181 --username=carlosdelosreyes"
   },
   "eslintConfig": {
     "extends": "react-app"
