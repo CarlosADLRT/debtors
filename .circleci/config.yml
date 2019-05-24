@@ -4,19 +4,6 @@ jobs:
     docker:
       - image: circleci/node:4.8.2
     steps:
-      - checkout
-
-      - run:
-          name: Greeting
-          command: echo Hello, world.
-
-      - run:
-          name: Print the Current Time
-          command: date
-  deployment:
-    docker:
-      - image: circleci/node:4.8.2
-    steps:
       - checkout # special step to check out source code to working directory
       - run:
           name: update-npm
