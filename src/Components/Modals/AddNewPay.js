@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Formik, Form, Field } from 'formik';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
+import { format } from 'date-fns';
 
 class AddNewPay extends Component {
   render() {
@@ -14,14 +15,22 @@ class AddNewPay extends Component {
       >
         <ModalHeader toggle={this.props.toggle}>Agregar nuevo pago</ModalHeader>
         <ModalBody>
-          <Formik>
+          <Formik
+            initialValues={{
+              debt: 0,
+              start: format(new Date(), 'MM/DD/YYYY')
+            }}
+            onSubmit={(values, { setSubmitting }) => {
+              console.log(values);
+            }}
+          >
             {({ handleChange, handleBlur, values }) => (
               <Form>
-                <div className='form-group'>
+                <div className="form-group">
                   <label>Monto pagado</label>
-                  <Field className='form-control' type='number' />
+                  <Field className="form-control" name="debt" type="number" />
                 </div>
-                <div className='form-group'>
+                <div className="form-group">
                   <label>Fecha del pago</label>
                   <br />
                   <DayPickerInput
@@ -31,7 +40,7 @@ class AddNewPay extends Component {
                     formatDate={this.formatDate}
                     parseDate={this.parseDate}
                     format={'MM/DD/YYYY'}
-                    className='form-control'
+                    className="form-control"
                   />
                 </div>
               </Form>
@@ -40,13 +49,13 @@ class AddNewPay extends Component {
         </ModalBody>
         <ModalFooter>
           <button
-            className='btn btn-primary'
-            type='submit'
+            className="btn btn-primary"
+            type="submit"
             onClick={this.props.toggle}
           >
             Agregar pago
           </button>{' '}
-          <button className='btn btn-danger' onClick={this.props.toggle}>
+          <button className="btn btn-danger" onClick={this.props.toggle}>
             Cancelar
           </button>
         </ModalFooter>

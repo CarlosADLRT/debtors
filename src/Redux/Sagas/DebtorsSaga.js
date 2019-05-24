@@ -2,7 +2,7 @@ import { put } from 'redux-saga/effects';
 import { sbxCoreService } from '../../Network';
 import * as Actions from '../Actions/ActionsCreators';
 import DebtService from '../../Services/DebtService';
-import NotificationSystem from 'react-notification-system';
+import { toast } from '../../Services/AlertService';
 
 export function* loadSaga({ type, payload }) {
   const res = yield sbxCoreService
@@ -44,9 +44,6 @@ export function* addSaga({ type, payload, submitForm }) {
   const res = yield DebtService.addNewDebt(payload);
   submitForm(false);
   if (res.success) {
-    NotificationSystem.addNotification({
-      message: 'Notification message',
-      level: 'success'
-    });
+    toast('Debt created');
   }
 }

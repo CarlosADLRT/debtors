@@ -10,33 +10,32 @@ class DashboardComponent extends Component {
     visibleLeft: true
   };
   render() {
-    const { match } = this.props;
-    console.log('TCL: DashboardComponent -> render -> match', match);
+    const { match, location } = this.props;
     return (
       <Fragment>
-        <div id='wrapper'>
+        <div id="wrapper">
           {/* <!-- Sidebar --> */}
           <SidebarComponent />
           {/* <!-- End of Sidebar --> */}
 
           {/* <!-- Content Wrapper --> */}
-          <div id='content-wrapper' className='d-flex flex-column'>
+          <div id="content-wrapper" className="d-flex flex-column">
             {/* <!-- Main Content --> */}
-            <div id='content'>
+            <div id="content">
               <Topbar />
               {/* <!-- Begin Page Content --> */}
-              <div className='container-fluid'>
+              <div className="container-fluid">
                 {/* <!-- Page Heading --> */}
-                <div className='d-flex align-items-center justify-content-end mb-4'>
-                  {!match.path.includes('agregar_prestamo') ? (
+                <div className="d-flex align-items-center justify-content-end mb-4">
+                  {!location.pathname.includes('agregar_prestamo') ? (
                     <Link
                       to={match.path + '/agregar_prestamo'}
-                      className='btn btn-primary'
+                      className="btn btn-primary"
                     >
                       Agregar Prestamo
                     </Link>
                   ) : (
-                    <Link to={'/dashboard'} className='btn btn-primary'>
+                    <Link to={'/dashboard'} className="btn btn-primary">
                       Regresar a la tabla
                     </Link>
                   )}
@@ -62,8 +61,8 @@ class DashboardComponent extends Component {
         {/* <!-- End of Page Wrapper -->
 
   <!-- Scroll to Top Button--> */}
-        <a className='scroll-to-top rounded' href='#page-top'>
-          <i className='fas fa-angle-up' />
+        <a className="scroll-to-top rounded" href="#page-top">
+          <i className="fas fa-angle-up" />
         </a>
       </Fragment>
     );
