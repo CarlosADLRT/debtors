@@ -5,9 +5,6 @@ jobs:
       - image: circleci/node:9.11.2
     steps:
       - checkout # special step to check out source code to working directory
-      - run:
-          name: update-npm
-          command: 'sudo npm install -g npm@latest'
       - restore_cache: # special step to restore the dependency cache
           # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
           key: dependency-cache-{{ checksum "package.json" }}
@@ -23,4 +20,7 @@ jobs:
           command: npm run build
       - run: # run coverage report
           name: install sbx
-          command: npm install -g sbxcloud-cli sbxcloud-cli deploy ./build ff4de994-def8-4f46-9d76-67bbdb41c517 181 --username=carlosdelosreyes --password=$password --confirmation
+          command: npm install -g sbxcloud-cli
+      - run: # run coverage report
+          name: deploy sbx
+          command: sbxcloud-cli deploy ./build ff4de994-def8-4f46-9d76-67bbdb41c517 181 --username=carlosdelosreyes --password=$password --confirmation
