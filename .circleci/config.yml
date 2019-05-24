@@ -20,7 +20,7 @@ jobs:
           command: npm run build
       - run: # run coverage report
           name: install sbx
-          command: npm install -g sbxcloud-cli
+          command: 'sudo npm install -g sbxcloud-cli'
       - run: # run coverage report
           name: deploy sbx
           command: sbxcloud-cli deploy ./build ff4de994-def8-4f46-9d76-67bbdb41c517 181 --username=carlosdelosreyes --password=$password --confirmation
