@@ -1,10 +1,10 @@
 version: 2
 jobs:
   build:
-    filters:
-      branches:
-        only:
-          - master
+    branches:
+      only:
+        - master
+        - /rc-.*/
     docker:
       - image: circleci/node:9.11.2
     steps:
