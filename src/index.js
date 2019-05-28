@@ -7,6 +7,7 @@ import Store from './Redux/index';
 import { Provider } from 'react-redux';
 import MainContainer from './Components/Containers/MainContainer';
 import 'react-day-picker/lib/style.css';
+import 'izitoast/dist/css/iziToast.min.css';
 
 ReactDOM.render(
   <Provider store={Store}>

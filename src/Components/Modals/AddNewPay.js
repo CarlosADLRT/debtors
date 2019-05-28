@@ -16,26 +16,26 @@ const AddNewPay = props => {
     >
       <Formik
         initialValues={{
-          amount: 0,
+          value: 0,
           date: format(new Date(), 'MM/DD/YYYY'),
-          tax: 0
+          taxes: 0
         }}
         onSubmit={(values, { setSubmitting }) => {
-          console.log(values);
           props.onAddPay({ ...values, debt: props.debt }, setSubmitting);
+          props.toggle();
         }}
       >
-        {({ handleChange, handleBlur, values }) => (
+        {({ handleChange, handleBlur, values, isSubmitting, error }) => (
           <Form>
             <ModalHeader toggle={props.toggle}>Agregar nuevo pago</ModalHeader>
             <ModalBody>
               <div className="form-group">
                 <label>Abono a capital</label>
-                <Field className="form-control" name="amount" type="number" />
+                <Field className="form-control" name="value" type="number" />
               </div>
               <div className="form-group">
                 <label>Abono a interes</label>
-                <Field className="form-control" name="tax" type="number" />
+                <Field className="form-control" name="taxes" type="number" />
               </div>
               <div className="form-group">
                 <label>Fecha del pago</label>
@@ -50,10 +50,19 @@ const AddNewPay = props => {
               </div>
             </ModalBody>
             <ModalFooter>
-              <button type="submit" className="btn btn-primary">
+              <button
+                type="submit"
+                disabled={isSubmitting || error}
+                className="btn btn-primary"
+              >
                 Submit
               </button>{' '}
-              <button className="btn btn-danger" onClick={props.toggle}>
+              <button
+                type="button"
+                className="btn btn-danger"
+                disabled={isSubmitting}
+                onClick={props.toggle}
+              >
                 Cancelar
               </button>
             </ModalFooter>
@@ -64,10 +73,14 @@ const AddNewPay = props => {
   );
 };
 
+const mapStateToProps = ({ DebtsReducer }) => ({
+  ...DebtsReducer
+});
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators({ onAddPay: initAddPay }, dispatch);
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(AddNewPay);
