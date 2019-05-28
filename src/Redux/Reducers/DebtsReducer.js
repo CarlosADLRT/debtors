@@ -8,9 +8,10 @@ export default (state = initialState, { type, payload }) => {
   switch (type) {
     case ActionsTypes.REQUEST_LOAD_DEBTORS:
       return { ...state, loading: true };
-
     case ActionsTypes.LOAD_DEBTORS:
       return { ...state, debts: payload, loading: false };
+    case ActionsTypes.PAY:
+      return { ...state, debts: payload };
     default:
       return state;
   }

@@ -44,13 +44,15 @@ export function* addSaga({ type, payload, submitForm }) {
   const res = yield DebtService.addNewDebt(payload);
   submitForm(false);
   if (res.success) {
-    toast('Debt created');
+    toast('Prestamo creado');
   }
 }
 export function* paySaga({ type, payload, submitForm }) {
   const res = yield DebtService.addPay(payload);
-  submitForm(false);
+
   if (res.success) {
-    toast('Debt created');
+    yield put(Actions.requestLoadDebtors());
+    submitForm(false);
+    toast('Pago agregado');
   }
 }

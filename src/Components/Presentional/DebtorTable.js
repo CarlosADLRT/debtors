@@ -5,14 +5,26 @@ import { requestLoadDebtors } from '../../Redux/Actions/ActionsCreators';
 import { format } from 'date-fns';
 import AddNewPay from '../Modals/AddNewPay';
 import { moneyFormatter } from '../../Utils/Utils';
+import AddNewDebt from '../Modals/AddNewDebt';
 
 const DebtorTable = props => {
   const [modal, setModal] = useState(false);
+  const [addDebtModal, setAddDebtModal] = useState(false);
   const [debt, setDebt] = useState(null);
 
   useEffect(() => {
     props.requestLoadDebtors();
   }, []);
+  useEffect(() => {
+    if (!modal) {
+      setDebt(null);
+    }
+  }, [modal]);
+  useEffect(() => {
+    if (!addDebtModal) {
+      setDebt(null);
+    }
+  }, [addDebtModal]);
 
   return (
     <Fragment>
@@ -30,6 +42,7 @@ const DebtorTable = props => {
                   <th>Fecha del prestamo</th>
                   <th>Intereses</th>
                   <th>Deuda actual</th>
+                  <th>Intereses actuales</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
@@ -40,6 +53,7 @@ const DebtorTable = props => {
                     <td>{format(i.start, 'DD/MM/YYYY')}</td>
                     <td>{i.tax * 100}%</td>
                     <td>{moneyFormatter(i.debt)}</td>
+                    <td>{moneyFormatter(i.taxesDebt)}</td>
                     <td>
                       <button
                         onClick={() => {
@@ -56,7 +70,13 @@ const DebtorTable = props => {
                       >
                         Ver pagos
                       </button>
-                      <button className="btn btn-primary">
+                      <button
+                        onClick={() => {
+                          setAddDebtModal(!addDebtModal);
+                          setDebt(i._KEY);
+                        }}
+                        className="btn btn-primary"
+                      >
                         Agregar Prestamo
                       </button>
                     </td>
@@ -69,6 +89,13 @@ const DebtorTable = props => {
       </div>
       {modal && (
         <AddNewPay debt={debt} open={modal} toggle={() => setModal(!modal)} />
+      )}
+      {addDebtModal && (
+        <AddNewDebt
+          debt={debt}
+          open={addDebtModal}
+          toggle={() => setAddDebtModal(!addDebtModal)}
+        />
       )}
     </Fragment>
   );
