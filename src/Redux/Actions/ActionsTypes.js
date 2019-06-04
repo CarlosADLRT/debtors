@@ -6,3 +6,4 @@ export const LOAD_DEBTORS = 'LOAD_DEBTORS';
 export const ADD_NEW_DEBT = 'ADD_NEW_DEBT';
 export const INIT_PAY = 'INIT_PAY';
 export const PAY = 'PAY';
+export const FILTER_LIST = 'FILTER_LIST';

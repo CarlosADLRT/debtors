@@ -1,85 +1,103 @@
-import React, { Component } from 'react';
+import React, { useRef } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { bindActionCreators } from 'redux';
+import { filterList } from '../../Redux/Actions/ActionsCreators';
+import { connect } from 'react-redux';
 
-export default class Topbar extends Component {
-  render() {
-    return (
-      <nav className='navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow'>
-        {/* <!-- Sidebar Toggle (Topbar) --> */}
-        <button
-          id='sidebarToggleTop'
-          className='btn btn-link d-md-none rounded-circle mr-3'
-        >
-          <i className='fa fa-bars' />
-        </button>
+const Topbar = props => {
+  const inputSearch = useRef('');
+  const search = e => {
+    e.preventDefault();
+    if (inputSearch.current.value.length) {
+      props.filterList(inputSearch.current.value);
+    } else {
+      props.filterList(null);
+    }
+  };
+  return (
+    <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+      {/* <!-- Sidebar Toggle (Topbar) --> */}
+      <button
+        id="sidebarToggleTop"
+        className="btn btn-link d-md-none rounded-circle mr-3"
+      >
+        <i className="fa fa-bars" />
+      </button>
 
-        {/* <!-- Topbar Search --> */}
-        <form className='d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search'>
-          <div className='input-group'>
-            <input
-              type='text'
-              className='form-control bg-light border-0 small'
-              placeholder='Search for...'
-              aria-label='Search'
-              aria-describedby='basic-addon2'
-            />
-            <div className='input-group-append'>
-              <button className='btn btn-primary' type='button'>
-                <i className='fas fa-search fa-sm' />
-              </button>
-            </div>
+      {/* <!-- Topbar Search --> */}
+      <form
+        onSubmit={search}
+        className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+      >
+        <div className="input-group">
+          <input
+            type="text"
+            className="form-control bg-light border-0 small"
+            placeholder="Search for..."
+            aria-label="Search"
+            aria-describedby="basic-addon2"
+            ref={inputSearch}
+            onChange={search}
+          />
+          <div className="input-group-append">
+            <button className="btn btn-primary" type="submit">
+              <FontAwesomeIcon icon={faSearch} />
+            </button>
           </div>
-        </form>
+        </div>
+      </form>
 
-        {/* <!-- Topbar Navbar --> */}
-        <ul className='navbar-nav ml-auto'>
-          {/* <!-- Nav Item - Search Dropdown (Visible Only XS) --> */}
-          <li className='nav-item dropdown no-arrow d-sm-none'>
-            <span className='nav-link dropdown-toggle'>
-              <i className='fas fa-search fa-fw' />
-            </span>
-            {/* <!-- Dropdown - Messages --> */}
-            <div
-              className='dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in'
-              aria-labelledby='searchDropdown'
-            >
-              <form className='form-inline mr-auto w-100 navbar-search'>
-                <div className='input-group'>
-                  <input
-                    type='text'
-                    className='form-control bg-light border-0 small'
-                    placeholder='Search for...'
-                    aria-label='Search'
-                    aria-describedby='basic-addon2'
-                  />
-                  <div className='input-group-append'>
-                    <button className='btn btn-primary' type='button'>
-                      <i className='fas fa-search fa-sm' />
-                    </button>
-                  </div>
+      {/* <!-- Topbar Navbar --> */}
+      <ul className="navbar-nav ml-auto">
+        {/* <!-- Nav Item - Search Dropdown (Visible Only XS) --> */}
+        <li className="nav-item dropdown no-arrow d-sm-none">
+          <span className="nav-link dropdown-toggle">
+            <i className="fas fa-search fa-fw" />
+          </span>
+          {/* <!-- Dropdown - Messages --> */}
+          <div
+            className="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+            aria-labelledby="searchDropdown"
+          >
+            <form className="form-inline mr-auto w-100 navbar-search">
+              <div className="input-group">
+                <input
+                  type="text"
+                  className="form-control bg-light border-0 small"
+                  placeholder="Search for..."
+                  aria-label="Search"
+                  aria-describedby="basic-addon2"
+                />
+                <div className="input-group-append">
+                  <button className="btn btn-primary" type="button">
+                    <i className="fas fa-search fa-sm" />
+                  </button>
                 </div>
-              </form>
-            </div>
-          </li>
+              </div>
+            </form>
+          </div>
+        </li>
 
-          {/* <!-- Nav Item - Alerts --> */}
+        {/* <!-- Nav Item - Alerts --> */}
 
-          {/* <!-- Nav Item - Messages --> */}
+        {/* <!-- Nav Item - Messages --> */}
 
-          <div className='topbar-divider d-none d-sm-block' />
+        <div className="topbar-divider d-none d-sm-block" />
 
-          {/* <!-- Nav Item - User Information --> */}
-          <li className='nav-item dropdown no-arrow'>
-            <span className='nav-link dropdown-toggle'>
-              <span className='mr-2 d-none d-lg-inline text-gray-600 small'>
-                Manuel De Los Reyes
-              </span>
-              {/* <img
+        {/* <!-- Nav Item - User Information --> */}
+        <li className="nav-item dropdown no-arrow">
+          <span className="nav-link dropdown-toggle">
+            <span className="mr-2 d-none d-lg-inline text-gray-600 small">
+              Manuel De Los Reyes
+            </span>
+            {/* <img
                 className='img-profile rounded-circle'
                 src='https://source.unsplash.com/QAB-WJcbgJk/60x60'
               /> */}
-            </span>
-            {/* <!-- Dropdown - User Information --> */}
-            {/* <div
+          </span>
+          {/* <!-- Dropdown - User Information --> */}
+          {/* <div
               className='dropdown-menu dropdown-menu-right shadow animated--grow-in'
               aria-labelledby='userDropdown'
             >
@@ -106,9 +124,16 @@ export default class Topbar extends Component {
                 Logout
               </a>
             </div> */}
-          </li>
-        </ul>
-      </nav>
-    );
-  }
-}
+        </li>
+      </ul>
+    </nav>
+  );
+};
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ filterList }, dispatch);
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(Topbar);

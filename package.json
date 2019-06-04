@@ -31,7 +31,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "sbxcloud-cli deploy ./build ff4de994-def8-4f46-9d76-67bbdb41c517 181 --username=carlosdelosreyes"
+    "deploy": "sbxcloud-cli deploy ./build ff4de994-def8-4f46-9d76-67bbdb41c517 181 --username=carlosdelosreyes",
+    "flow": "flow"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -42,5 +43,8 @@
     "not ie <= 11",
     "not op_mini all"
   ],
-  "homepage": "https://sbxcloud.com/www/debtors/App/"
+  "homepage": "https://sbxcloud.com/www/debtors/App/",
+  "devDependencies": {
+    "flow-bin": "^0.99.1"
+  }
 }

@@ -1,30 +1,13 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { requestLoadDebtors } from '../../Redux/Actions/ActionsCreators';
-import { format } from 'date-fns';
-import AddNewPay from '../Modals/AddNewPay';
-import { moneyFormatter } from '../../Utils/Utils';
-import AddNewDebt from '../Modals/AddNewDebt';
+import DebtorRow from './DebtorRow';
 
 const DebtorTable = props => {
-  const [modal, setModal] = useState(false);
-  const [addDebtModal, setAddDebtModal] = useState(false);
-  const [debt, setDebt] = useState(null);
-
   useEffect(() => {
     props.requestLoadDebtors();
   }, []);
-  useEffect(() => {
-    if (!modal) {
-      setDebt(null);
-    }
-  }, [modal]);
-  useEffect(() => {
-    if (!addDebtModal) {
-      setDebt(null);
-    }
-  }, [addDebtModal]);
 
   return (
     <Fragment>
@@ -48,55 +31,13 @@ const DebtorTable = props => {
               </thead>
               <tbody>
                 {props.debts.map(i => (
-                  <tr key={i._KEY}>
-                    <td>{i.debtor}</td>
-                    <td>{format(i.start, 'DD/MM/YYYY')}</td>
-                    <td>{i.tax * 100}%</td>
-                    <td>{moneyFormatter(i.debt)}</td>
-                    <td>{moneyFormatter(i.taxesDebt)}</td>
-                    <td>
-                      <button
-                        onClick={() => {
-                          setModal(!modal);
-                          setDebt(i._KEY);
-                        }}
-                        className="btn btn-primary mr-3"
-                      >
-                        Agregar pago
-                      </button>
-                      <button
-                        // onClick={this.toggle}
-                        className="btn btn-primary mr-3"
-                      >
-                        Ver pagos
-                      </button>
-                      <button
-                        onClick={() => {
-                          setAddDebtModal(!addDebtModal);
-                          setDebt(i._KEY);
-                        }}
-                        className="btn btn-primary"
-                      >
-                        Agregar Prestamo
-                      </button>
-                    </td>
-                  </tr>
+                  <DebtorRow key={i._KEY} row={i} />
                 ))}
               </tbody>
             </table>
           </div>
         </div>
       </div>
-      {modal && (
-        <AddNewPay debt={debt} open={modal} toggle={() => setModal(!modal)} />
-      )}
-      {addDebtModal && (
-        <AddNewDebt
-          debt={debt}
-          open={addDebtModal}
-          toggle={() => setAddDebtModal(!addDebtModal)}
-        />
-      )}
     </Fragment>
   );
 };

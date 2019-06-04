@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Formik, Field, Form } from 'formik';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
-import { format, parse } from 'date-fns';
-import { DateUtils } from 'react-day-picker';
 import * as Actions from '../../Redux/Actions/ActionsCreators';
 import { bindActionCreators } from 'redux';
+import { formatDate, parseDate } from '../../Utils/Utils';
+import { format } from 'date-fns';
 
 class AddNewDebt extends Component {
   state = {
@@ -20,18 +20,6 @@ class AddNewDebt extends Component {
     this.setState({ focused });
   };
 
-  formatDate(date, dateFormat, locale) {
-    return format(date, dateFormat, { locale });
-  }
-
-  parseDate(str, format, locale) {
-    const parsed = parse(str, format, { locale });
-    if (DateUtils.isDate(parsed)) {
-      return parsed;
-    }
-    return undefined;
-  }
-
   render() {
     return (
       <div>
@@ -45,7 +33,7 @@ class AddNewDebt extends Component {
           onSubmit={(values, { setSubmitting }) => {
             console.log(values);
             this.props.onAddNewDebt(
-              { ...values, tax: values.tax / 100 },
+              { ...values, tax: values.tax / 100, taxesDebt: 0 },
               setSubmitting
             );
           }}
@@ -68,8 +56,8 @@ class AddNewDebt extends Component {
                   onDayChange={handleChange}
                   onBlur={handleBlur}
                   value={values.start}
-                  formatDate={this.formatDate}
-                  parseDate={this.parseDate}
+                  formatDate={formatDate}
+                  parseDate={parseDate}
                   format={'MM/DD/YYYY'}
                   className="w-100"
                 />

@@ -58,3 +58,8 @@ export const addPay = payload => ({
   type: ActionsType.PAY,
   payload
 });
+
+export const filterList = payload => ({
+  type: ActionsType.FILTER_LIST,
+  payload
+});
