@@ -11,7 +11,9 @@ export function* loadSaga({ type, payload }) {
     .find();
 
   if (res.success) {
-    console.log(res);
+    res.results.sort((a, b) =>
+      a.debtor > b.debtor ? 1 : b.debtor > a.debtor ? -1 : 0
+    );
     yield put(Actions.loadDebtors(res.results));
   } else {
     yield put(Actions.loginFail());
@@ -21,7 +23,6 @@ export function* createSaga({ type, payload }) {
   const res = yield sbxCoreService.insert('debt', { ...payload });
 
   if (res.success) {
-    console.log(res);
     // yield put(Actions.finishAdd());
   } else {
     yield put(Actions.loginFail());
@@ -34,7 +35,7 @@ export function* debtorSaga({ type, payload }) {
     .find();
 
   if (res.success) {
-    console.log(res);
+    debugger;
     yield put(Actions.loadDebtors(res.results));
   } else {
     yield put(Actions.loginFail());

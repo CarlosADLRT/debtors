@@ -1,7 +1,6 @@
-// @flow
 import iziToast from 'izitoast';
 
-export function toast(message, type = 'success') {
+export function toast(message: string, type = 'success') {
   iziToast[type]({
     message: message,
     position: 'bottomLeft',

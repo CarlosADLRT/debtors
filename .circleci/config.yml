@@ -23,6 +23,9 @@ jobs:
           name: build
           command: npm run build
       - run: # run coverage report
+          name: Run flow
+          command: npm run flow
+      - run: # run coverage report
           name: install sbx
           command: 'sudo npm install -g sbxcloud-cli'
       - run: # run coverage report

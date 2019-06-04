@@ -2,9 +2,13 @@ import React from 'react';
 import { Modal, ModalHeader, ModalFooter, ModalBody } from 'reactstrap';
 import { Formik, Form, Field } from 'formik';
 import { format } from 'date-fns';
-import { DayPickerInput } from 'react-day-picker/DayPickerInput';
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import { initAddPay } from '../../Redux/Actions/ActionsCreators';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { formatDate, parseDate } from '../../Utils/Utils';
 
-export default function AddNewDebt(props) {
+function AddNewDebtModal(props) {
   return (
     <Modal
       isOpen={props.open}
@@ -14,15 +18,17 @@ export default function AddNewDebt(props) {
       <Formik
         initialValues={{
           value: 0,
-          date: format(new Date(), 'MM/DD/YYYY'),
-          taxes: 0
+          date: format(new Date(), 'MM/DD/YYYY')
         }}
         onSubmit={(values, { setSubmitting }) => {
-          // props.onAddPay({ ...values, debt: props.debt }, setSubmitting);
-          // props.toggle();
+          props.onAddPay(
+            { ...values, debt: props.debt._KEY, type: 'LOAN' },
+            setSubmitting
+          );
+          props.toggle();
         }}
       >
-        {({ isSubmitting }) => (
+        {({ isSubmitting, handleChange, values, handleBlur }) => (
           <Form>
             <ModalHeader toggle={props.toggle}>
               Agregar nuevo prestamo
@@ -31,6 +37,19 @@ export default function AddNewDebt(props) {
               <div className="form-group">
                 <label>Valor del prestamo</label>
                 <Field className="form-control" name="value" type="number" />
+              </div>
+              <div className="form-group">
+                <label htmlFor="">Fecha del prestamo</label>
+                <br />
+                <DayPickerInput
+                  onDayChange={handleChange}
+                  onBlur={handleBlur}
+                  value={values.date}
+                  formatDate={formatDate}
+                  parseDate={parseDate}
+                  format={'MM/DD/YYYY'}
+                  className="w-100"
+                />
               </div>
             </ModalBody>
             <ModalFooter>
@@ -55,3 +74,11 @@ export default function AddNewDebt(props) {
     </Modal>
   );
 }
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ onAddPay: initAddPay }, dispatch);
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(AddNewDebtModal);
