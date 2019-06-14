@@ -1,22 +1,15 @@
-import { put } from 'redux-saga/effects';
+import { put, call } from 'redux-saga/effects';
 import { sbxCoreService } from '../../Network';
 import * as Actions from '../Actions/ActionsCreators';
 import DebtService from '../../Services/DebtService';
 import { toast } from '../../Services/AlertService';
 
 export function* loadSaga({ type, payload }) {
-  const res = yield sbxCoreService
-    .with('debt')
-    .andWhereIsEqualTo('done', false)
-    .find();
-
+  const res = yield call(DebtService.loadDebts);
   if (res.success) {
-    res.results.sort((a, b) =>
-      a.debtor > b.debtor ? 1 : b.debtor > a.debtor ? -1 : 0
-    );
     yield put(Actions.loadDebtors(res.results));
   } else {
-    yield put(Actions.loginFail());
+    yield put(Actions.loadDebtors());
   }
 }
 export function* createSaga({ type, payload }) {
@@ -56,4 +49,9 @@ export function* paySaga({ type, payload, submitForm }) {
     submitForm(false);
     toast('Pago agregado');
   }
+}
+
+export function* testSaga() {
+  const res = yield call(DebtService.loadDebts);
+  yield put(Actions.loadDebtors([]));
 }

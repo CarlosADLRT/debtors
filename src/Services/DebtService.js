@@ -10,4 +10,10 @@ export default class DebtService {
       .run(environment.cs.addPay, data)
       .then(res => res.response.body);
   }
+  static loadDebts() {
+    return sbxCoreService
+      .with('debt')
+      .andWhereIsEqualTo('done', false)
+      .find();
+  }
 }
